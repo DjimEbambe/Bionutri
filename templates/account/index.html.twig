@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte -Bionutri{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Mon compte</h1>
+
+    Bienvenu {{ app.user.firstname }} dans votre compte, c'est dans cette espace que vous allez gérer toutes vos information personnelle
+    <hr>
+    - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a><br/>
+    - <a href="{{ path('account_address') }}">Ajouter mes adresse</a><br/>
+    - Mes commandes
+
+</div>
+{% endblock %}

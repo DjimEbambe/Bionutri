@@ -3,17 +3,183 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
-
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/bionutri.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/stylebar.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/bionutri.css') }}">
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+    <!-- Header (PC+phone, Navbar) -->
+        <header class="bioDign">
+            <div class="p-0 d-none d-md-block" id="pcDjim">
+                <nav class="nav nav-tabs fixed-top shadow-sm bg-light">
+                    <a href="{{path('home')}}"><img style="height:40px;" src="{{ asset('assets/img/logo/logoBionutri.jpeg') }}" class="img-thumbnail p-0 m-0 border-0" alt="..."></a>
+                    <a href="{{path('home')}}"><img style="height:40px;" src="{{ asset('assets/img/logo/logoNbionutri.jpeg') }}" class="img-thumbnail p-0 m-0 border-0" alt="..."></a>
+                    <div class="nav-item">
+                        <a class="nav-link {% if  app.request.get('_route')=='home'  %} active {% endif %}" aria-current="page" href="{{path('home')}}">Accueil</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link {% if  app.request.get('_route')=='page'  %} active {% endif %} " href="{{path('page')}}">Blog</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="#">Nous contacter</a>
+                    </div>
+
+                    {% if  app.user  %}
+
+                        <div class="d-flex  bd-highlight">
+                            <nav class="nav position-absolute top-0 end-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ app.user.firstname|slice(0, 2)}}</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item disabled" href="#">Panier vide</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ path('account') }}">Mon compte</a></li>
+                                    </ul>
+                                </li>
+                            </nav>
+                        </div>
+
+                    {% else  %}
+                        <nav class="nav position-absolute top-0 end-0">
+                            <div class="nav-item">
+                                <a class="nav-link {% if  app.request.get('_route')=='app_login'  %} active {% endif %}"  href="{{ path('app_login') }}">Connexion</a>
+                            </div><div class="nav-item">
+                                <a class="nav-link {% if  app.request.get('_route')=='register'  %} active {% endif %}" href="{{ path('register') }}">Inscription</a>
+                            </div>
+                        </nav>
+                    {% endif %}
+
+                </nav>
+            </div>
+
+            <!-- Header (phone, Navbar) -->
+            <nav class="navbar d-md-none p-0 ml-3 fixed-top shadow-sm bg-light d-flex justify-content-sm-between" id="phoneDjim">
+                <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
+                <div class="container-fluid">
+                    <div class="m-0 p-0">
+                        <button class="m-0 p-0 navbar-toggler bd-search-docs-toggle d-md-none" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+                        <a href="{{path('home')}}"><img style="height:40px;" src="{{ asset('assets/img/logo/logoBionutri.jpeg') }}" class="img-thumbnail p-0 mx-1 border-0" alt="..."></a>
+                    </div>
+                    <form class="d-flex w-50">
+                        <input class="form-control me-1" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">S</button>
+                    </form>
+                    <div class="">
+                        <nav class="nav">
+                            {% if  app.user  %}
+                                <div class="btn-group">
+                                    <a class="nav-link dropdown-toggle" href="" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ app.user.firstname|slice(0, 2)}}</a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><a class="dropdown-item disabled" href="#">Panier vide</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ path('account') }}">Mon compte</a></li>
+                                    </ul>
+                                </div>
+                            {% else  %}
+                                <div class="nav-item w-25">
+                                    <a class="m-0 p-0 nav-link {% if  app.request.get('_route')=='app_login'  %} active {% endif %}"  href="{{ path('app_login') }}">Connexion</a>
+                                </div>
+                            {% endif  %}
+
+                        </nav>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse bg-light p-1 p-lg-0 mt-5 mt-lg-0 d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu" id="navbarSupportedContent" style="border-radius: 10px;">
+                    <!-- Liste menu phone -->
+                    <nav class="nav nav-tabs">
+                        <div class="nav-item">
+                            <a class="nav-link {% if  app.request.get('_route')=='home'  %} active {% endif %}" aria-current="page" href="{{path('home')}}">Active</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link {% if  app.request.get('_route')=='page'  %} active {% endif %} " href="{{path('page')}}">Page</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </div>
+                    </nav>
+
+
+                    {% if  app.request.get('_route')=='home'  %}
+                        Nos produid
+                        <a class="dropdown-item" href="">S'inscrire</a>
+                        <a class="dropdown-item" href="">S'inscrire</a>
+                        <a class="dropdown-item" href="">S'inscrire</a>
+                    {% endif %}
+                    {% if  app.request.get('_route')=='page'  %} blog ou contat {% endif %}
+                    {% if  app.request.get('_route')=='contat'  %} active {% endif %}
+                    {% if  app.request.get('_route')=='blog'  %} active {% endif %}
+
+
+
+                    <!-- End liste menu phone -->
+                </div>
+            </nav>
+        </header>
+        <!-- endHeader -->
+
+
+        <!-- Main -->
+        <main class="container-fluid pt-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+
+                </ol>
+            </nav>
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+        <!-- endMain -->
+
+
+        <!-- footer -->
+        <!-- endFooter -->
+
+        <!-- script -->
+
+        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" ></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}" ></script>
+        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" ></script>
+        <script src="{{ asset('assets/js/bionutri.js') }}" ></script>
+
+
+    <script>
+            $(document).ready(function() {
+                var fixHeight = function() {
+                    $('.navbar-nav').css(
+                        'max-height',
+                        document.documentElement.clientHeight - 150
+                    );
+                };
+                fixHeight();
+                $(window).resize(function() {
+                    fixHeight();
+                });
+                $('.navbar .navbar-toggler').on('click', function() {
+                    fixHeight();
+                });
+                $('.navbar-toggler, .overlay').on('click', function() {
+                    $('.mobileMenu, .overlay').toggleClass('open');
+                });
+            });
+        </script>
+    <!-- endScript -->
     </body>
 </html>

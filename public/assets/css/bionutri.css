@@ -1,0 +1,19 @@
+/*!
+ *
+ * Copyright 2021, Bionutri.
+ * By Ir Djim Ebambe
+ */
+.navbar-toggler {
+    color: #f1003c;
+}
+
+.text-uppercase{
+    background-color: #f1003c;
+}
+.bioDign a{
+    color: #000000;
+}
+.imgProduct{
+    max-width: 200px;
+    height: 200px;
+}

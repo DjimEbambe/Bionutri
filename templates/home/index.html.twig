@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accuel -Bionutri{% endblock %}
+
+{% block content %}
+        <div class="row">
+                <nav class="col-md-3 col-xl-2 d-none d-md-block m-3 position-fixed">
+                        <!-- liste Pc -->
+                        {{ form(form) }}
+                </nav>
+
+                <main class="container col-md-9 col-xl-8">
+                        <h3>Nos produits</h3>
+                        <div class="row product-container">
+                                {% for product in products %}
+                                        <div class="col-3 border border-2 m-3">
+                                                <div class="product-item">
+                                                        <a href="{{ path('product', {'slug':product.slug}) }}"> <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid imgProduct"></a>
+                                                        <h5>{{ product.name }}</h5>
+                                                        <span class="product-subtitle">{{ product.subtitle }}</span>
+                                                        <span class="product-price">{{ (product.price)/100|number_format(2) }} $</span>
+                                                </div>
+                                        </div>
+                                {% endfor %}
+
+                        </div>
+                        <div class="row product-container">
+                                <div class="col-md-4">
+
+                                </div>
+                        </div>
+
+                </main>
+        </div>
+{% endblock %}
