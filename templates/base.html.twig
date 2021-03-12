@@ -1,15 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bionutri{% endblock %}</title>
         <!-- Bootstrap core CSS -->
+
         <link rel="stylesheet" href="{{ asset('assets/css/bionutri.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/stylebar.css') }}">
+        <!-- Start kit -->
+        <link rel="stylesheet" href="{{ asset('assets/css/kit/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/kit/glightbox.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/kit/glightbox.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/kit/nouislider.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/kit/default.css') }}">
+
+        <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+        <!-- End kit -->
         <link rel="stylesheet" href="{{ asset('assets/css/bionutri.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
         {% block javascripts %}
         {% endblock %}
+
+
     </head>
     <body>
 
@@ -133,12 +146,7 @@
 
 
         <!-- Main -->
-        <main class="container-fluid pt-5">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-
-                </ol>
-            </nav>
+        <main class="container-fluid w-auto">
 
             {% block content %}
 
@@ -160,26 +168,8 @@
         <script src="{{ asset('assets/js/bionutri.js') }}" ></script>
 
 
-    <script>
-            $(document).ready(function() {
-                var fixHeight = function() {
-                    $('.navbar-nav').css(
-                        'max-height',
-                        document.documentElement.clientHeight - 150
-                    );
-                };
-                fixHeight();
-                $(window).resize(function() {
-                    fixHeight();
-                });
-                $('.navbar .navbar-toggler').on('click', function() {
-                    fixHeight();
-                });
-                $('.navbar-toggler, .overlay').on('click', function() {
-                    $('.mobileMenu, .overlay').toggleClass('open');
-                });
-            });
-        </script>
+
+
     <!-- endScript -->
     </body>
 </html>

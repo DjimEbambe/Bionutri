@@ -16,6 +16,7 @@
                 </div>
             {% endif %}
 
+            {#
             <h1 class="h3 mb-3 font-weight-normal">Merci de vous connecter</h1>
             <label for="inputPhone">Votre numéro de téléphone</label>
             <input type="text" value="{{ last_username }}" name="phone" id="inputPhone" placeholder="+243" class="form-control" required autofocus>
@@ -35,11 +36,66 @@
                     <input type="checkbox" name="_remember_me"> Remember me
                 </label>
             </div>
-            #}
+
             <hr>
             <button class="btn btn-primary btn-sm" type="submit">
                 Se connecter
             </button>
+            #}
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                    <div class="login-registration-style-3 mt-30">
+                        <h4 class="heading-4 font-weight-500 title text-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Merci de vous connecter</font></font></h4>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <form action="#">
+                                    <div class="single-form form-default">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Votre numéro de téléphone</font></font></label>
+                                        <div class="form-input">
+                                            <input type="text" value="{{ last_username }}" placeholder="0829400945" name="phone" id="inputPhone"  class="form-control" required autofocus>
+                                            <i class="bi bi-telephone-fill"></i>
+                                        </div>
+                                    </div>
+                                    <div class="single-form form-default">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Votre mot de passe</font></font></label>
+                                        <div class="form-input">
+                                            <input id="password-11" type="password" name="password" class="form-control" placeholder="4 à 12 caractères" required>
+                                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                            <i class="bi bi-lock-fill"></i>
+                                            <span toggle="#password-11" class="mdi mdi-eye-outline toggle-password"></span>
+                                        </div>
+                                    </div>
+                                    <div class="login-checkbox-forget d-sm-flex justify-content-between align-items-center">
+                                        <div class="checkbox pt-3">
+                                            <label>
+                                                <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                                            </label>
+                                        </div>
+                                        <a class="forget" href="#">Mot de passe oublié?</a>
+                                    </div>
+                                    <div class="single-form">
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-primary btn-sm" type="submit">Connexion</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-5">
+                                <p class="account mt-20"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Connectez-vous avec un compte social</font></font></p>
+                                <ul>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary btn-sm facebook-login-registration" type="button"><i class="bi bi-facebook"></i> Facebook</button>
+                                        <button class="btn btn-secondary btn-sm google-login-registration" type="button"><img src="{{ asset('assets/img/google-logo.svg') }}" width="25"> Google</button>
+                                    </div>
+
+                                </ul>
+                                <p class="login"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Vous n'avez pas de compte? </font></font><a href="#0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">S'inscrire</font></font></a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 

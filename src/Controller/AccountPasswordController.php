@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AccountPasswordController extends AbstractController
 {
@@ -19,10 +20,12 @@ class AccountPasswordController extends AbstractController
     }
     /**
      * @Route("/compte/modifier-mon-mot-de-passe", name="account_password")
+     * @Security ("is_granted ('IS_AUTHENTICATED_FULLY')")
      */
 
     public function index(Request $request, UserPasswordEncoderInterface  $encoder)
     {
+        
         $user= $this->getUser();
         $form = $this->createForm(ChangePasswordType::class,$user);
         $form->handleRequest($request);

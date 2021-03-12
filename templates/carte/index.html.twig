@@ -5,21 +5,19 @@
 {% block content %}
 
     <div class="container">
-        <h1 scope="col">Mon panier</h1>
+        <h1 class="col">Mon panier</h1>
         {% if stockfini %}
             <div class="alert alert-info">{{ stockfini }}</div>
         {% endif %}
 
         {% if cart|length > 0 %}
-            <a href="{{ path('remove_to_cart') }}">
-                suprimer tout panier <img src="{{asset('assets/img/delete.png') }}" alt="suprimer tout panier"  height="18px">
-            </a>
+            <a href="{{ path('remove_to_cart') }}" class="btn btn-sm btn-danger"> <img src="{{asset('assets/img/delete.png') }}" width="15px" alt=""> Tout supprimer</a>
             <table class="table mt-3">
                 <thead>
                 <tr>
                     <th scope="col">Produit</th>
                     <th scope="col"></th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">Quantité</th>
                     <th scope="col">Prix</th>
                     <th scope="col">Total</th>
                 </tr>
@@ -32,24 +30,30 @@
                         <th scope="row">
                             <img src="/uploads/{{ product.product.illustration }}" alt="{{ product.product.name }}" height="75px">
                         </th>
-                        <td>
+                        <td class="align-middle">
                             {{ product.product.name }}<br/>
                             <small>{{ product.product.subtitle }}</small>
                         </td>
 
-                        <td>
-                            <a href="{{ path('add_to_cart', { 'id': product.product.id}) }}">
-                                <img src="{{asset('assets/img/plus.png') }}" alt="Ajouter le produit"  height="12px">
-                            </a>
-                            {{ product.quantity }}
-                            <a href="{{ path('decrease_to_cart', { 'id': product.product.id}) }}">
-                                <img src="{{asset('assets/img/minus.png') }}" alt="suprimer le produit"  height="12px">
-                            </a>
+                        <td class="align-middle">
+
+                                <a href="{{ path('add_to_cart', { 'id': product.product.id}) }}" class="shadow-sm bg-light">
+                                    <img src="{{asset('assets/img/file-plus.svg') }}" alt="suprimer le produit"  height="30px">
+                                </a>
+                                <b class="shadow-sm bg-light">{{ product.quantity }}</b>
+                                <a href="{{ path('decrease_to_cart', { 'id': product.product.id}) }}" class="shadow-sm bg-light">
+                                    <img src="{{asset('assets/img/file-minus.svg') }}" alt="suprimer le produit"  height="30px">
+                                </a>
+
                         </td>
 
-                        <td>{{ product.product.price/100 }}</td>
-                        <td>{{ product.product.price*product.quantity/100 }}</td>
-                        <td>
+                        <td class="align-middle">
+                            {{ (product.product.price/100)|number_format(2,',',' ')}} CDF
+                        </td>
+                        <td class="align-middle">
+                            {{ (product.product.price*product.quantity/100)|number_format(2,',',' ')}}
+                        </td>
+                        <td class="align-middle">
                             <a href="{{ path('delete_to_cart', { 'id': product.product.id}) }}">
                                 <img src="{{asset('assets/img/delete.png') }}" alt="suprimer le produit"  height="18px">
                             </a>
@@ -59,18 +63,55 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="row">
+                <div class="coupon1 col-8">
+                    <form class="row g-3">
+                        <div class="col-auto">
+                            Appliquez le coupon pour obtenir une réduction!
+                        </div>
+                        <div class="col-auto">
+                            <label for="inputPassword2" class="visually-hidden">Password</label>
+                            <input type="text" class="form-control" id="inputPassword2" placeholder="Code promo">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-sm btn-primary mb-3">Appliquer</button>
+                        </div>
+                    </form>
 
-            <div class="text-right mb-5">
-                <b>Nombre total de produit: </b>{{ cart|length}} <br/>
-                <b>Total de mon payement: </b>{{ total/100 }} $<br/>
-                <a class="">Valider ma panier</a>
+                    <a href="{{ path('home') }}" class="btn primary-btn btn-sm"> <img src="{{ asset('assets/img/bag-plus.svg') }}"  width="15px" alt="">  Continuer l'achat</a>
+                </div>
+                <div class="coupon2 col-4">
+                    <ul class="list-group" style="border-left: 1px solid black ;">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nombre total:
+                            <span class="badge bg-primary rounded-pill">{{ cart|length}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Coupon:
+                            <span>0.001 CDF</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Total payement:
+                            <span>{{ (total/100)|number_format(2,',',' ') }} CDF</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center">
+
+                            <span class="align-content-center">
+                                <a href="{{ path('order') }}" class="btn primary-btn btn-sm">  <img src="{{ asset('assets/img/credit.svg') }}"  width="15px" alt="">   Payer
+                                </a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
             </div>
 
         {% else %}
             <hr>
-            <b>Votre panier est vide!. </b>
+            <a>Votre panier est vide!. </a>
         {% endif %}
     </div>
+
 
 
 {% endblock %}

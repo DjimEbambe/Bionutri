@@ -25,15 +25,28 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route
-
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 31536000 # 1 week in seconds
+                path: /
+                domain: ~
+                secure: true
+                name: REMEMBERME
+                remember_me_parameter: remember_me
+                always_remember_me: true
+            form_login:
+                # ...
+                default_target_path: home
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/compte, roles: ROLE_USER }
+        - { path: ^/commande, roles: ROLE_USER }

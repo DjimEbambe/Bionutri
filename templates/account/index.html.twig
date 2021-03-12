@@ -1,16 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte -Bionutri{% endblock %}
+{% block title %}
+    Mon compte | {{ parent() }}
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Mon compte</h1>
+    <div class="container">
+        <h1>Mon compte</h1>
+        <small>{% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('admin') }}">Accéder au backoffice</a><br>
+            {% endif %}</small>
+        Bienvenue {{ app.user.firstname | capitalize }}
+        <hr>
 
-    Bienvenu {{ app.user.firstname }} dans votre compte, c'est dans cette espace que vous allez gérer toutes vos information personnelle
-    <hr>
-    - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a><br/>
-    - <a href="{{ path('account_address') }}">Ajouter mes adresse</a><br/>
-    - Mes commandes
 
-</div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="account-item text-center">
+                    <img src="{{ asset('assets/img/secure.png') }}" alt="Modifier mon mot de passe"><br>
+                    <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="account-item text-center">
+                    <img src="{{ asset('assets/img/address.png') }}" alt="Gérer mes adresses"><br>
+                    <a href="{{ path('account_address') }}">Gérer mes adresses</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="account-item text-center">
+                    <img src="{{ asset('assets/img/purchase.png') }}" alt="Gérer mes commandes"><br>
+                    <a href="{{ path('account_order') }}">Gérer mes commandes</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

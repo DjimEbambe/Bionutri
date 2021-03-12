@@ -71,7 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Phone could not be found.');
+            throw new CustomUserMessageAuthenticationException('Numéro introuvable, veillez réessayer');
         }
 
         return $user;

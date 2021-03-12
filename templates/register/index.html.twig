@@ -3,9 +3,85 @@
 {% block title %}S'enregistrer{% endblock %}
 
 {% block content %}
+    <div class="container-sm">
+        {% if notification %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{ notification }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="bi bi-x"></i></button>
+            </div>
+        {% endif %}
 
-<div class="container-sm">
 
-    {{ form(form) }}
-</div>
+        {{ form_start(form) }}
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="login-registration-style-2">
+                        <h4 class="heading-4 font-weight-500 title text-center">Création compte</h4>
+                        <div class="login-registration-form">
+                                <div class="single-form form-default form-border">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="black">Pré-nom</p>
+                                            {{ form_widget(form.firstname) }}
+                                            <p class="small fst-italic lh-1">{{ form_errors(form.firstname) }}</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="black">Nom</p>
+                                            {{ form_widget(form.name) }}
+                                            <p class="small fst-italic lh-1">{{ form_errors(form.name) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-form form-default form-border">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p class="black">Téléphone</p>
+                                            {{ form_widget(form.phone) }}
+                                            <p class="small fst-italic lh-1">{{ form_errors(form.phone) }}</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="black">E-mail</p>
+                                            {{ form_widget(form.email) }}
+                                            <p class="small fst-italic lh-1">{{ form_errors(form.email) }}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="single-form form-default form-border">
+                                    <p class="black">Mot de passe</p>
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.password.first) }}</p>
+                                    {{ form_widget(form.password.first) }}
+                                </div>
+                                <div class="single-form form-default form-border">
+                                    <p class="black">Mot de passe</p>
+                                    {{ form_widget(form.password.second) }}
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.password.second) }}</p>
+                                </div>
+                                <div class="small">
+                                    {{ form_row(form.termsAccepted) }}
+                                </div>
+                                <div class="single-form">
+                                    <div class="d-grid gap-2">
+                                        {{ form_widget(form.submit) }}
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="d-sm-flex justify-content-between align-items-center">
+                            <p class="login">Vous déja un compte compte ? <a href="{{ path('account') }}"><button type="button" class="btn btn-sm">Connexion</button></a></p>
+
+                            <ul>
+                                <li><p class="account">Ou</p></li>
+                                <li><a href="#" class="facebook-login-registration"><i class="bi bi-facebook"></i></a></li>
+                                <li><a href="#" class="google-login-registration"><img src="{{ asset('assets/img/google-logo.svg') }}" alt=""> </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+
+    </div>
 {% endblock %}
+
+

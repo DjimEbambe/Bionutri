@@ -4,20 +4,79 @@
 
 {% block content %}
 
-        <h1>Gérer mes adresses</h1>
-        <a href="{{ path('account_address') }}">Retour</a></br>
 
+    <div class="container-sm">
         {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">{{ form_row(form.name) }}</div>
-                <div class="col-md-6">{{ form_row(form.firstname) }}</div>
-                <div class="col-md-6">{{ form_row(form.lastname) }}</div>
-                <div class="col-md-6">{{ form_row(form.commune) }}</div>
-                <div class="col-md-6">{{ form_row(form.address) }}</div>
-                <div class="col-md-6">{{ form_row(form.reference) }}</div>
-                <div class="col-md-6">{{ form_row(form.city) }}</div>
-                <div class="col-md-6">{{ form_row(form.phone) }}</div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="login-registration-style-2">
+                    <h4 class="heading-4 font-weight-500 title text-center">Réinitialiser mot de passe</h4>
+                    <div class="login-registration-form">
+                        <div class="single-form form-default form-border">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="black">Pré-nom</p>
+                                    {{ form_widget(form.firstname) }}
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.firstname) }}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="black">Nom</p>
+                                    {{ form_widget(form.lastname) }}
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.lastname) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-form form-default form-border">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="black">Commune</p>
+                                    {{ form_widget(form.commune) }}
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.commune) }}</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="black">Ville</p>
+                                    {{ form_widget(form.city) }}
+                                    <p class="small fst-italic lh-1">{{ form_errors(form.city) }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="single-form form-default form-border">
+                            <p class="black">Téléphone</p>
+                            <p class="small fst-italic lh-1">{{ form_errors(form.phone) }}</p>
+                            {{ form_widget(form.phone) }}
+                        </div>
+
+                        <div class="single-form form-default form-border">
+
+                            <div class="col-5">
+                                <p class="black">Nom de l'addresse</p>
+                                {{ form_widget(form.name) }}
+                                <p class="small fst-italic lh-1">{{ form_errors(form.name) }}</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="black">Addresse</p>
+                                {{ form_widget(form.address) }}
+                                <p class="small fst-italic lh-1">{{ form_errors(form.address) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="single-form form-default form-border">
+                            <p class="black">Ajouter une reference</p>
+                            {{ form_widget(form.reference) }}
+                            <p class="small fst-italic lh-1">{{ form_errors(form.reference) }}</p>
+                        </div>
+                        <div class="single-form">
+                            <div class="d-grid gap-2">
+                                {{ form_widget(form.submit) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
         {{ form_end(form) }}
 
+    </div>
 {% endblock %}

@@ -67,6 +67,11 @@ class User implements UserInterface
         $this->orders = new ArrayCollection();
     }
 
+    public function getFullName(): string
+    {
+        return $this->getFirstname().' '.$this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

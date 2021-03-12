@@ -3,21 +3,44 @@
 {% block title %}{{ product.name}} -Bionutri{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-5">
-            <img class="img-fluid" src="/uploads/{{ product.illustration }}" alt="{{ product.name }}">
-        </div>
+    <div class="row color1" style="background: #e5eee7">
+        <div class="col-md-auto">
 
-        <div class="col-md-7 my-auto">
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.subtitle }}</p>
-            {{ (product.price)/100|number_format(2) }} $
+            <img class="cropped1" src="/uploads/{{ product.illustration }}" alt="{{ product.name }}">
+
             <hr>
-            <p>{{ product.description }}</p>
-            <a href="{{ path('add_to_cart', {'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
 
         </div>
+
+        <div class="col-md-7" style="border-left: 5px solid #aedecc ;">
+
+            <div class="product-price-btn text-lg-right">
+                <div class="product-price">
+                    <h6 class="price-title">Prix: </h6>
+                    <p class="sale-price"> {{ (product.price)/100|number_format(2) }}  CDF</p>
+                    <p class="text-decoration-line-through regular-price"> {{ (product.price)/100|number_format(2) }}  CDF</p>
+                </div>
+
+                <div class="product-btn">
+                    <a href="{{ path('add_to_cart', {'id': product.id}) }}" class="main-btn primary-btn"><img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" alt="">Ajouter Maintenant</a>
+                </div>
+            </div>
+
+            <h3>{{ product.name }}</h3>
+            <hr>
+            <p>{{ product.subtitle }}</p><br>
+            <p>{{ product.description }}</p>
+        </div>
+
     </div>
 
-    <hr>
+    <div class="col">
+        <!-- commentaire -->
+        <h1>Commentaire</h1>
+
+        M.2, formerly known as the Next Generation Form Factor (NGFF), is a specification for internally mounted computer expansion cards and associated connectors. M.2 replaces the mSATA standard, which uses the PCI Express Mini Card physical card layout and connectors. Employing a more flexible physical specification, the M.2 allows different module widths and lengths, and, paired with the availability of more advanced interfacing features, makes the M.2 more suitable than mSATA in general for solid-state storage applications, and particularly in smaller devices such as ultrabooks and tablets.[1][2][3]
+
+        Computer bus interfaces provided through the M.2 connector are PCI Express 4.0 (up to four lanes), Serial ATA 3.0, and USB 3.0 (a single logical port for each of the latter two). It is up to the manufacturer of the M.2 host or module to select which interfaces are to be supported, depending on the desired level of host support and device type. The M.2 connector keying notches denote various purposes and capabilities of both M.2 hosts and devices. The unique key notches of M.2 modules also prevent them from being inserted into incompatible host connectors.[1][2][4]
+    </div>
+
 {% endblock %}
