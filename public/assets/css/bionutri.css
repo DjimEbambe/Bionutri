@@ -14,15 +14,8 @@
     color: #000000;
 }
 .imgProduct{
-    max-width: 200px;
-    height: 200px;
-}
-
-.cropped1 {
-    width: auto; /* width of container */
-    max-height: 300px; /* height of container */
-    object-fit: cover;
-
+    width: auto;
+    height: auto;
 }
 
 .coupon1{
@@ -75,5 +68,4 @@
     color: #778ca3;
     text-decoration: none;
 }
-
 

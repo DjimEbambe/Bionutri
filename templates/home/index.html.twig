@@ -2,9 +2,50 @@
 
 {% block title %}Accuel -Bionutri{% endblock %}
 
+
+
+{% block phoneListHead %}
+        {{ form_start(formHead) }}
+                <div class="input-group">
+                        <div class="" >{{ form_widget(formHead.string,  {'attr': {'style':'height:70px; width:300px'}}) }}</div>
+                        <button type="submit" id="submit" name="submit" class="input-group-text h-25"><img src="{{ asset('assets/img/search.svg') }}" alt="" height="55px" width="40px"></button>
+
+                </div>
+
+                <div class="d-none">
+                        <p class="small fst-italic lh-1">{{ form_errors(formHead.string) }}</p>
+                        <hr>
+                        <div class="col">
+                                {{ form_row(formHead.categories) }}
+                                {{ form_row(formHead.submit) }}
+                        </div>
+                </div>
+        {{ form_end(formHead) }}
+{% endblock %}
+
+
+
+
+{% block phoneList %}
+        {{ form_start(form2) }}
+        <div>
+                <div class="input-group d-none">
+                        <div class="">{{ form_widget(form2.string,  {'attr': {'style':'height:70px;'}}) }}</div>
+                        <button type="submit" id="submit" name="submit" class="input-group-text h-25"><img src="{{ asset('assets/img/search.svg') }}" alt="" height="55px" width=40px"></button>
+                </div>
+                <p class="small fst-italic lh-1">{{ form_errors(form2.string) }}</p>
+                <hr>
+                <div class="col">
+                        {{ form_row(form2.categories) }}
+                        {{ form_row(form2.submit) }}
+                </div>
+        </div>
+        {{ form_end(form2) }}
+{% endblock %}
+
 {% block content %}
         <div class="row">
-                <nav class="collapse col-md-3 col-xl-auto d-none d-md-block m-3 bd-sidebar">
+                <nav class="collapse col-lg-3 col-xl-auto d-none d-lg-block m-3 bd-sidebar">
                         <!-- liste Pc -->
 
                         {{ form_start(form) }}
@@ -22,114 +63,124 @@
                         {{ form_end(form) }}
                 </nav>
 
-                <main class="col-md-8">
+                <main class="col-lg-8 col-md-8-">
                         <h3>Nos produits</h3>
                         <div class="row product-container">
                                 {% for product in products %}
 
-                                        <div class="col-lg-4 col-sm-6">
+                                        <div class="col-lg-4 col-6 col-md-6">
                                                 <div class="product-style-11 mt-30 ">
                                                         <div class="product-image">
                                                                 <div class="product-item">
-                                                                        <a href="{{ path('product', {'slug':product.slug}) }}"> <img src="/uploads/{{ product.illustration }}" alt="{{ product.name }}" class="img-fluid imgProduct"></a>
+                                                                        <a href="{{ path('product', {'slug':product.slug}) }}"> <img src="{{ asset('/uploads/' ~ product.illustration )| imagine_filter('square') }}" alt="{{ product.name }}" class="img-fluid imgProduct"></a>
                                                                 </div>
                                                                 <a class="add-wishlist" href="#">
-                                                                        <i class="bi bi-heart-fill"></i>
+                                                                        <span class="badge rounded-pill bg-primary {% if product.stock <= 0 %} bg-danger {% endif %} "> {{ product.stock }}</span>
                                                                 </a>
                                                         </div>
                                                         <div class="product-content">
                                                                 <span class="rating"><i class="mdi mdi-star"></i> 4.5/5</span>
                                                                 <h5 class="title"><a href="#">{{ product.name|slice(0, 17)  }}</a></h5>
                                                                 <p>{% if product.subtitle|length > 27 %} {{product.subtitle|slice(0, 25) }} ...{% else %} {{ product.subtitle }} {% endif %}</p>
-                                                                <span class="price">$ {{ (product.price)/100|number_format(2) }}</span>
-                                                                <a href="{{ path('product', {'slug':product.slug}) }}" class="main-btn primary-btn align-content-center"> <img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" alt=""> Ajouter au panier</a>
+                                                                <span class="price">{{ (product.price/100)|number_format(2,',',' ') }}  CDF</span>
+                                                                <a href="{{ path('add_to_cart', {'id': product.id}) }}" class="main-btn primary-btn align-content-center"> <img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" alt=""> Ajouter au panier</a>
                                                         </div>
                                                 </div>
                                         </div>
                                 {% endfor %}
-                        </div>
+
+                                <hr class="m-4">
+
+                                <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-center">
+                                                {{ knp_pagination_render(products) }}
+                                        </ul>
+                                </nav>
 
 
                                 <!--====== Product Style 7 Carousel/Dots  Part Start ======-->
-                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                                <section>
-                                                        <div class="container">
-                                                                <div class="row ">
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                                <div class="product-style-1 mt-30">
-                                                                                        <div class="product-image">
-                                                                                                <div class="product-item active">
-                                                                                                        <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                        <section>
+                                                                <div class="container">
+                                                                        <div class="row ">
+                                                                                <div class="col-lg-4 col-sm-6">
+                                                                                        <div class="product-style-1 mt-30">
+                                                                                                <div class="product-image">
+                                                                                                        <div class="product-item active">
+                                                                                                                <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                                                                                        </div>
+                                                                                                        <a class="add-wishlist" href="#">
+                                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                                        </a>
                                                                                                 </div>
-                                                                                                <a class="add-wishlist" href="#">
-                                                                                                        <i class="mdi mdi-heart-outline"></i>
-                                                                                                </a>
-                                                                                        </div>
-                                                                                        <div class="product-content text-center p-2">
-                                                                                                <h4 class="title"><a href="#">Metro 38 Date</a></h4>
-                                                                                                <p>Reference 1102</p>
-                                                                                                <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                <div class="product-content text-center p-2">
+                                                                                                        <h4 class="title"><a href="#">Metro 38 Date</a></h4>
+                                                                                                        <p>Reference 1102</p>
+                                                                                                        <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                </div>
                                                                                         </div>
                                                                                 </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                                <div class="product-style-1 mt-30">
-                                                                                        <div class="product-image">
-                                                                                                <div class="product-item active">
-                                                                                                        <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                                                                <div class="col-lg-4 col-sm-6">
+                                                                                        <div class="product-style-1 mt-30">
+                                                                                                <div class="product-image">
+                                                                                                        <div class="product-item active">
+                                                                                                                <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                                                                                        </div>
+                                                                                                        <a class="add-wishlist">
+                                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                                        </a>
                                                                                                 </div>
-                                                                                                <a class="add-wishlist">
-                                                                                                        <i class="mdi mdi-heart-outline"></i>
-                                                                                                </a>
-                                                                                        </div>
-                                                                                        <div class="product-content text-center p-2">
-                                                                                                <h4 class="title"><a href="#">Metro 38 Date</a></h4>
-                                                                                                <p>Reference 1102</p>
-                                                                                                <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                <div class="product-content text-center p-2">
+                                                                                                        <h4 class="title"><a href="#">Metro 38 Date</a></h4>
+                                                                                                        <p>Reference 1102</p>
+                                                                                                        <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                </div>
                                                                                         </div>
                                                                                 </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4 col-sm-6">
-                                                                                <div class="product-style-1 mt-30">
-                                                                                        <div class="product-image">
-                                                                                                <div class="product-item active">
-                                                                                                        <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                                                                <div class="col-lg-4 col-sm-6">
+                                                                                        <div class="product-style-1 mt-30">
+                                                                                                <div class="product-image">
+                                                                                                        <div class="product-item active">
+                                                                                                                <img src="{{ asset('assets/img/product-1.jpg') }}" alt="product">
+                                                                                                        </div>
+                                                                                                        <a class="add-wishlist" href="#">
+                                                                                                                <i class="mdi mdi-heart-outline"></i>
+                                                                                                        </a>
                                                                                                 </div>
-                                                                                                <a class="add-wishlist" href="#">
-                                                                                                        <i class="mdi mdi-heart-outline"></i>
-                                                                                                </a>
-                                                                                        </div>
-                                                                                        <div class="product-content text-center p-2">
-                                                                                                <h4 class="title"><a href="#">Metro 38 Date</a></h4>
-                                                                                                <p>Reference 1102</p>
-                                                                                                <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                <div class="product-content text-center p-2">
+                                                                                                        <h4 class="title"><a href="#">Metro 38 Date</a></h4>
+                                                                                                        <p>Reference 1102</p>
+                                                                                                        <a href="#" class="main-btn secondary-1-btn"> <img src="{{ asset('assets/img/cart-7.svg') }}" alt=""> $ 399</a>
+                                                                                                </div>
                                                                                         </div>
                                                                                 </div>
                                                                         </div>
                                                                 </div>
-                                                        </div>
-                                                </section>
+                                                        </section>
+                                                </div>
+                                                <div class="carousel-item">
+                                                        <img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" class="d-block w-100" alt="...">
+                                                </div>
+                                                <div class="carousel-item">
+                                                        <img src="{{ asset('assets/img/product-1.jpg') }}" class="d-block w-100" alt="...">
+                                                </div>
                                         </div>
-                                        <div class="carousel-item">
-                                                <img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" class="d-block w-100" alt="...">
-                                        </div>
-                                        <div class="carousel-item">
-                                                <img src="{{ asset('assets/img/product-1.jpg') }}" class="d-block w-100" alt="...">
-                                        </div>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                        </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                </button>
-                        </div>
                                 <!--====== Product Style 7 Carousel/Dots Part Ends ======-->
 
+
+
+                        </div>
 
                 </main>
         </div>

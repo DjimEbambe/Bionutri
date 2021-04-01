@@ -34,9 +34,6 @@ security:
                 name: REMEMBERME
                 remember_me_parameter: remember_me
                 always_remember_me: true
-            form_login:
-                # ...
-                default_target_path: home
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

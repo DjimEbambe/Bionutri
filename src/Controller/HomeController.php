@@ -6,6 +6,7 @@ use App\Classe\Search;
 use App\Entity\Product;
 use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,23 +21,39 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request)
+    public function index(Request $request,  PaginatorInterface $paginator)
     {
 
         $search=new search();
         $form=$this->createForm(SearchType::class, $search);
 
+
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()){
             $products=$this->entityManager->getRepository(Product::class)->findWithSearch($search);
-            //dd($products);
-        }else{
+
+            $productsPination=$paginator->paginate(
+                $products, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                9 /*limit per page*/
+            );;
+        }
+
+        else{
             $products = $this->entityManager->getRepository(Product::class)->FindAll();
+            $productsPination=$paginator->paginate(
+                $products, /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                9 /*limit per page*/
+            );;
         }
         return $this->render('home/index.html.twig', [
-            'products' => $products,
-            'form'=>$form->createView()
+            'products' => $productsPination,
+            'form'=>$form->createView(),
+            'form2'=>$form->createView(),
+            'formHead'=>$form->createView()
         ]);
     }
 

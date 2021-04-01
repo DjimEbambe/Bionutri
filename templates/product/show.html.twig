@@ -6,7 +6,7 @@
     <div class="row color1" style="background: #e5eee7">
         <div class="col-md-auto">
 
-            <img class="cropped1" src="/uploads/{{ product.illustration }}" alt="{{ product.name }}">
+            <img class="cropped1" src="{{ asset('/uploads/' ~ product.illustration )| imagine_filter('squareSmall') }}" alt="{{ product.name }}">
 
             <hr>
 

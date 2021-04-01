@@ -61,10 +61,16 @@ class User implements UserInterface
      */
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BlogArticles::class, mappedBy="users")
+     */
+    private $blogArticles;
+
     public function __construct()
     {
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->blogArticles = new ArrayCollection();
     }
 
     public function getFullName(): string
@@ -243,6 +249,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BlogArticles[]
+     */
+    public function getBlogArticles(): Collection
+    {
+        return $this->blogArticles;
+    }
+
+    public function addBlogArticle(BlogArticles $blogArticle): self
+    {
+        if (!$this->blogArticles->contains($blogArticle)) {
+            $this->blogArticles[] = $blogArticle;
+            $blogArticle->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlogArticle(BlogArticles $blogArticle): self
+    {
+        if ($this->blogArticles->removeElement($blogArticle)) {
+            // set the owning side to null (unless already changed)
+            if ($blogArticle->getUsers() === $this) {
+                $blogArticle->setUsers(null);
             }
         }
 

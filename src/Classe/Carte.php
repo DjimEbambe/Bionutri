@@ -13,6 +13,8 @@ class Carte
     private $entityManager;
     static $stockfini= null;
 
+
+
     /**
      * Carte constructor.
      */
@@ -92,6 +94,8 @@ class Carte
                 ];
             }
         }
+
+        //dd($cartComplet);
 
         return $cartComplet;
     }

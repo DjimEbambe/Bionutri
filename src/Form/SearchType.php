@@ -24,7 +24,8 @@ class SearchType extends AbstractType
                 'required'=>false,
                 'attr'=>[
                     'placeholder'=>'Votre recherche',
-                    'class'=>'form-control'
+                    'class'=>'form-control',
+                    //'style'=>'height:70px;',
                 ]
             ])
             ->add('categories', EntityType::class,[

@@ -26,8 +26,9 @@ class OrderController extends AbstractController
      */
     public function index(Carte $cart): Response
     {
-
+        //dd($this->getUser());
         if (!$this->getUser()->getAddresses()->getValues()){
+
             return $this->redirectToRoute('account_address_add');
         }
 
@@ -105,10 +106,6 @@ class OrderController extends AbstractController
         }
 
         return $this->redirectToRoute('cart');
-
-
-
-
 
     }
 }
