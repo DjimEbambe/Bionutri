@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+    <h1>{{ article.titre }}</h1>
+    <p>{{ article.createdAt|date }} - Commentaires : {{ commentaires|length }}</p>
+    <img src="{{ vich_uploader_asset(article, 'imageFile')|imagine_filter('article')  }}" alt="">
+    <div>{{ article.contenu|raw }}</div>
+
+    <p>Catégories :
+        {% for categorie in article.categories %}
+            {{ categorie.nom }}
+        {% endfor %}
+    </p>
+
+    <h2>{% trans %}Comments{% endtrans %}</h2>
+    {% for commentaire in commentaires %}
+        <p>{% trans %}Published by{% endtrans %} {{ commentaire.pseudo }} le {{ commentaire.createdAt|date }}</p>
+        <p>{{ commentaire.contenu }}</p>
+    {% else %}
+        <p>{% trans %}There's no comment yet{% endtrans %}</p>
+    {% endfor %}
+    {{ form(form) }}
+{% endblock %}

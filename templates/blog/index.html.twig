@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog -Bionutri{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1> Mbote, Bienvenue dans notre Blog</h1>
+
+    <h1>{% trans %}Articles list{% endtrans %}</h1>
+    {% for message in app.flashes('message') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for article in article %}
+        <h2><a href="{{ path('actualites_article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
+        <img src="{#  asset('/uploads/' ~ product.illustration )| imagine_filter('square') #}" alt="">
+        <div>{{ article.contenu }}</div>
+    {% endfor %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{ knp_pagination_render(article) }}
+        </ul>
+    </nav>
+
+</div>
+{% endblock %}
