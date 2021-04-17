@@ -1,6 +1,10 @@
+# app/config/config.yml
+# (or config/packages/stof_doctrine_extensions.yaml if you use Flex)
 stof_doctrine_extensions:
-  default_locale: fr_FR
+  default_locale: en_US
   orm:
     default:
-      sluggable: true
+      tree: true
+      timestampable: false # not needed: listeners are not enabled by default
+    other:
       timestampable: true

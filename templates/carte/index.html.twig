@@ -30,7 +30,7 @@
                     {#  dump(product) #}
                     <tr>
                         <th scope="row">
-                            <img src="{{ asset('/uploads/' ~ product.product.illustration )| imagine_filter('tableau') }}" alt="{{ product.product.name }}" height="75px">
+                            <img src="{{ asset('/uploads/product/' ~ product.product.illustration )| imagine_filter('tableau') }}" alt="{{ product.product.name }}" height="75px">
                         </th>
                         <td class="align-middle">
                             {{ product.product.name }}<br/>

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BlogCommentaireRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,21 +42,14 @@ class BlogCommentaire
     private $actif = false;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",nullable=true)
      */
     private $rgpd = false;
 
     /**
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=BlogArticles::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $blogArticles;
 
     /**
      * @ORM\ManyToOne(targetEntity=BlogCommentaire::class, inversedBy="replies")
@@ -67,9 +61,19 @@ class BlogCommentaire
      */
     private $replies;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BlogArticles::class, inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $blogArticles;
+
     public function __construct()
     {
         $this->replies = new ArrayCollection();
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTime('now'));
+        }
     }
 
     public function getId(): ?int
@@ -142,23 +146,10 @@ class BlogCommentaire
         return $this->createdAt;
     }
 
-    /*
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-    */
-
-    public function getBlogArticles(): ?BlogArticles
-    {
-        return $this->blogArticles;
-    }
-
-    public function setBlogArticles(?BlogArticles $blogArticles): self
-    {
-        $this->blogArticles = $blogArticles;
 
         return $this;
     }
@@ -201,6 +192,18 @@ class BlogCommentaire
                 $reply->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBlogArticles(): ?BlogArticles
+    {
+        return $this->blogArticles;
+    }
+
+    public function setBlogArticles(?BlogArticles $blogArticles): self
+    {
+        $this->blogArticles = $blogArticles;
 
         return $this;
     }

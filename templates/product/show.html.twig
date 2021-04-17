@@ -2,45 +2,137 @@
 
 {% block title %}{{ product.name}} -Bionutri{% endblock %}
 
+{% block style %}
+    <style>
+        .card {
+            border: none
+        }
+
+        .form-color {
+            background-color: #fafafa
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 25px
+        }
+
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #35b69f;
+            outline: 0;
+            box-shadow: none;
+            text-indent: 10px
+        }
+
+        .c-badge {
+            background-color: #35b69f;
+            color: white;
+            height: 20px;
+            font-size: 11px;
+            width: 92px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2px
+        }
+
+        .comment-text {
+            font-size: 13px
+        }
+
+        .wish {
+            color: #35b69f
+        }
+
+        .user-feed {
+            font-size: 14px;
+            margin-top: 12px
+        }
+
+        .principal {
+            background-color: #fafafa;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+
 {% block content %}
-    <div class="row color1" style="background: #e5eee7">
-        <div class="col-md-auto">
 
-            <img class="cropped1" src="{{ asset('/uploads/' ~ product.illustration )| imagine_filter('squareSmall') }}" alt="{{ product.name }}">
+    <div class="container mt-10">
 
-            <hr>
+        <div class="row color1" style="background: #e5eee7">
+            <div class="col-md-auto">
 
-        </div>
+                <img class="cropped1" src="{{ asset('/uploads/product/' ~ product.illustration )| imagine_filter('squareSmall') }}" alt="{{ product.name }}">
 
-        <div class="col-md-7" style="border-left: 5px solid #aedecc ;">
+                <hr>
 
-            <div class="product-price-btn text-lg-right">
-                <div class="product-price">
-                    <h6 class="price-title">Prix: </h6>
-                    <p class="sale-price"> {{ (product.price)/100|number_format(2) }}  CDF</p>
-                    <p class="text-decoration-line-through regular-price"> {{ (product.price)/100|number_format(2) }}  CDF</p>
-                </div>
-
-                <div class="product-btn">
-                    <a href="{{ path('add_to_cart', {'id': product.id}) }}" class="main-btn primary-btn"><img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" alt="">Ajouter Maintenant</a>
-                </div>
             </div>
 
-            <h3>{{ product.name }}</h3>
-            <hr>
-            <p>{{ product.subtitle }}</p><br>
-            <p>{{ product.description }}</p>
+            <div class="col-md-6" style="border-left: 5px solid #aedecc ;">
+                <h3>{{ product.name }}</h3>
+
+                <p>{{ product.subtitle }}</p><br>
+                <p>{{ product.description }}</p>
+                <hr>
+                <h6 class="price-title">Categorie: </h6>
+                <h6 class="price-title">Tag: </h6>
+                <hr>
+                <div class="product-price-btn text-lg-right">
+                    <div class="product-price">
+                        <h6 class="price-title">Prix: </h6>
+                        <b class="text-decoration-line-through regular-price"> {{ (product.price)/100|number_format(2) }}</b>
+                        <b class="sale-price"> {{ (product.price)/100|number_format(2) }}  CDF</b>
+                    </div>
+
+                    <div class="product-btn">
+                        <a href="{{ path('add_to_cart', {'id': product.id}) }}" class="main-btn primary-btn"><img src="{{ asset('assets/img/icon-svg/cart-7.svg') }}" alt="">Ajouter Maintenant</a>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-
     </div>
 
-    <div class="col">
-        <!-- commentaire -->
-        <h1>Commentaire</h1>
 
-        M.2, formerly known as the Next Generation Form Factor (NGFF), is a specification for internally mounted computer expansion cards and associated connectors. M.2 replaces the mSATA standard, which uses the PCI Express Mini Card physical card layout and connectors. Employing a more flexible physical specification, the M.2 allows different module widths and lengths, and, paired with the availability of more advanced interfacing features, makes the M.2 more suitable than mSATA in general for solid-state storage applications, and particularly in smaller devices such as ultrabooks and tablets.[1][2][3]
 
-        Computer bus interfaces provided through the M.2 connector are PCI Express 4.0 (up to four lanes), Serial ATA 3.0, and USB 3.0 (a single logical port for each of the latter two). It is up to the manufacturer of the M.2 host or module to select which interfaces are to be supported, depending on the desired level of host support and device type. The M.2 connector keying notches denote various purposes and capabilities of both M.2 hosts and devices. The unique key notches of M.2 modules also prevent them from being inserted into incompatible host connectors.[1][2][4]
-    </div>
 
+
+    {% include 'comment.html.twig' %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var exampleModal = document.getElementById('exampleModal')
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-whatever')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+
+            if (recipient !== "comment"){
+                var modalTitle = exampleModal.querySelector('.modal-title')
+                modalTitle.textContent = 'Répondre au commentaire'
+            }
+            else{
+            }
+            // Update the modal's content.
+            var modalHeaderInput = exampleModal.querySelector('.modal-header input')
+            modalHeaderInput.value = recipient
+            //document.querySelector("#comment_parentid").value = recipient
+
+        })
+    </script>
 {% endblock %}

@@ -30,7 +30,7 @@ class BlogMotsCles
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity=BlogArticles::class, mappedBy="mots_cles")
+     * @ORM\ManyToMany(targetEntity=BlogArticles::class, mappedBy="motsCles")
      */
     private $blogArticles;
 

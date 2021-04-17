@@ -14,8 +14,8 @@
     {% endfor %}
 
     {% for article in article %}
-        <h2><a href="{{ path('actualites_article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
-        <img src="{#  asset('/uploads/' ~ product.illustration )| imagine_filter('square') #}" alt="">
+        <h2><a href="{{ path('article', {'slug': article.slug}) }}">{{ article.titre }}</a></h2>
+        <img src="{{ asset('/uploads/post/' ~ article.illustration )| imagine_filter('square') }}" alt="">
         <div>{{ article.contenu }}</div>
     {% endfor %}
 

@@ -34,9 +34,14 @@ class BlogCategory
      */
     private $blogArticles;
 
+
     public function __construct()
     {
         $this->blogArticles = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return $this->getNom();
     }
 
     public function getId(): ?int

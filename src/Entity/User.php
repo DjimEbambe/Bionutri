@@ -64,6 +64,12 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=BlogArticles::class, mappedBy="users")
      */
+
+    private $blogArticle2s;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogArticles::class, mappedBy="users")
+     */
     private $blogArticles;
 
     public function __construct()
@@ -254,6 +260,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     /**
      * @return Collection|BlogArticles[]
